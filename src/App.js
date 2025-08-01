@@ -22,13 +22,18 @@ const App = () => {
     setCurrentNumber(number.slice(0, -1))
   }
 
-  const handlePercentageNumbers = (x) => {
+  const handlePercentageNumbers = (x, opr) => {
     const result = Number(firstNumber) * (Number(x) / 100)
-    console.log(result)
-    const sum = Number(firstNumber) + Number(result)
-    console.log(sum)
-    setCurrentNumber(String(sum))
-    setOperation("")
+    let sum = 0
+    if (opr === "+") {
+      sum = Number(firstNumber) + Number(result)
+      setCurrentNumber(String(sum))
+      setOperation("")
+    } else {
+      sum = Number(firstNumber) - Number(result)
+      setCurrentNumber(String(sum))
+      setOperation("")
+    }
   }
 
   const handleSumNumbers = () => {
@@ -38,7 +43,7 @@ const App = () => {
       setOperation("+")
     } else {
       if (currentNumber[currentNumber.length - 1] === "%") {
-        handlePercentageNumbers(currentNumber.slice(0, -1))
+        handlePercentageNumbers(currentNumber.slice(0, -1), operation)
       } else {
         const sum = Number(firstNumber) + Number(currentNumber)
         setCurrentNumber(String(sum))
@@ -53,9 +58,13 @@ const App = () => {
       setCurrentNumber("0")
       setOperation("-")
     } else {
-      const sum = Number(firstNumber) - Number(currentNumber)
-      setCurrentNumber(String(sum))
-      setOperation("")
+      if (currentNumber[currentNumber.length - 1] === "%") {
+        handlePercentageNumbers(currentNumber.slice(0, -1), operation)
+      } else {
+        const sum = Number(firstNumber) - Number(currentNumber)
+        setCurrentNumber(String(sum))
+        setOperation("")
+      }
     }
   }
 
