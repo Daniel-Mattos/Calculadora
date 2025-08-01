@@ -18,8 +18,17 @@ const App = () => {
     setFirstNumber("0")
     setOperation("")
   }
-  const handleClearLastNumber=(number)=>{
-    setCurrentNumber(number.slice(0,-1))
+  const handleClearLastNumber = (number) => {
+    setCurrentNumber(number.slice(0, -1))
+  }
+
+  const handlePercentageNumbers = (x) => {
+    const result = Number(firstNumber) * (Number(x) / 100)
+    console.log(result)
+    const sum = Number(firstNumber) + Number(result)
+    console.log(sum)
+    setCurrentNumber(String(sum))
+    setOperation("")
   }
 
   const handleSumNumbers = () => {
@@ -28,9 +37,13 @@ const App = () => {
       setCurrentNumber("0")
       setOperation("+")
     } else {
-      const sum = Number(firstNumber) + Number(currentNumber)
-      setCurrentNumber(String(sum))
-      setOperation("")
+      if (currentNumber[currentNumber.length - 1] === "%") {
+        handlePercentageNumbers(currentNumber.slice(0, -1))
+      } else {
+        const sum = Number(firstNumber) + Number(currentNumber)
+        setCurrentNumber(String(sum))
+        setOperation("")
+      }
     }
   }
 
@@ -70,7 +83,6 @@ const App = () => {
     }
   }
 
-
   const handleEnquals = () => {
     if (firstNumber !== "0" && operation !== "" && currentNumber !== "0") {
       switch (operation) {
@@ -100,7 +112,10 @@ const App = () => {
           <Button label="%" onClick={() => handleAddNumber("%")} />
           <Button label="/" onClick={handleDivNumbers} />
           <Button label="C" onClick={handleAllClear} />
-          <Button label={BackspaceIcon} onClick={() => handleClearLastNumber(currentNumber)} />
+          <Button
+            label={BackspaceIcon}
+            onClick={() => handleClearLastNumber(currentNumber)}
+          />
         </Row>
         <Row>
           <Button label={7} onClick={() => handleAddNumber("7")} />
