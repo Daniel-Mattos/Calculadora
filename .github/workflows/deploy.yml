@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy React App to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -31,13 +31,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use a versão do Node.js que seu projeto React utiliza
+      - name: Install dependencies
+        run: yarn install # Comando para instalar as dependências com Yarn
+      - name: Build React App
+        run: yarn build # Comando para construir a aplicação com Yarn
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
-          path: 'public'
+          # Upload the 'build' directory (output of React build)
+          path: './build'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
