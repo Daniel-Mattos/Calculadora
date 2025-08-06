@@ -1,5 +1,9 @@
 #Link para ver rodando
--> https://daniel-mattos.github.io/Calculadora/
+
+-> https://daniel-mattos.github.io/Calculadora/ 
+
+<img width="633" height="503" alt="image" src="https://github.com/user-attachments/assets/03e88ac2-39ce-41d4-b551-ed9731e260b8" />
+
 
 # Getting Started with Create React App
 
